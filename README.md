@@ -48,7 +48,7 @@ To update, we `POST` a copy of the resource where our extensions change, and eve
 
 ```sh
 $ cat created.json  | \
-jq '. + {extension: [{"url": "https://test.example.org", "valueString": "purple"}]}'| \
+jq '.extension = [{"url": "https://test.example.org", "valueString": "purple"}]' | \
 curl -s 'https://smart-app-state.argonaut.workers.dev/$smart-app-state-modify' \
 --request POST \
 --header "content-type: application/json" \
@@ -61,8 +61,6 @@ curl -s 'https://smart-app-state.argonaut.workers.dev/$smart-app-state-modify' \
 To delete, we `POST` a copy of our resource with the extensions cleared out:
 
 ```sh
-
-
 $ cat created.json  | \
 jq "del(.extension)" | \
 curl -s 'https://smart-app-state.argonaut.workers.dev/$smart-app-state-modify' \
