@@ -1,0 +1,17 @@
+name = "smart-app-state"
+type = "javascript"
+zone_id = ""
+account_id = ""
+route = ""
+workers_dev = true
+compatibility_date = "2022-04-23"
+kv_namespaces = [
+   { binding = "APP_STATE", preview_id = "978ecbb355584807aeda220edb89ce11", id = "cb114c2c2f4649edaae2dc92b1f822ce" }
+]
+
+[build]
+command = "npm install && npm run build"
+[build.upload]
+format = "service-worker"
+
+
