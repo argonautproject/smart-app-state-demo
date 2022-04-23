@@ -78,7 +78,7 @@ To query, we `GET /$smart-app-state-query`, including `subject` and `code` as qu
 $ curl -s --get 'https://smart-app-state.argonaut.workers.dev' \
 --header "Authorization: Bearer secret-shh-fixme" \
 --data-urlencode "subject=Patient/123" \
---data-urlencode  "code=https://test.example.org|preferences"
+--data-urlencode "code=https://test.example.org|preferences"
 ```
 
 *(Note: this proof of concept uses Cloudflare KV storage, which is an eventually-consistent storage mechanism. You may not see changes immediately when you query.)*
