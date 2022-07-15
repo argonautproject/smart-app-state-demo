@@ -2,37 +2,38 @@
 @subject = Patient/123
 @stateCodingSystem = https://demo-app.example.org
 @stateCodingCode = user-preferences
+@extensionUrl = https://demo-app.example.org/favorite-color
 
 ###
-# Create App state
+# Create favorite color as burlywood
 POST {{server}}/$smart-app-state-modify
 content-type: application/json
 
 {
     "resourceType":"Basic",
     "subject":{"reference":"{{subject}}"},
-    "code":{"coding":[{
+    "code":{
+      "coding":[{
         "system":"{{stateCodingSystem}}",
-        "code":"{{stateCodingCode}}"}]},
+        "code":"{{stateCodingCode}}"}
+    ]},
     "extension":[{
-        "url":"https://extension.example.org/favorite-color",
+        "url":"{{extensionUrl}}",
         "valueString":"burlywood"
     }]
 }
 
 ###
-# Query App state
+# Query favorite color
 // @name queryAppState
 GET https://smart.argo.run/v/r4/sim/test/fhir/$smart-app-state-query
     ?subject={{subject}}
     &code={{stateCodingSystem}}|{{stateCodingCode}}
 
-
+@firstAppStateId = {{queryAppState.response.body.entry[0].resource.id}}
 
 ###
-# Delete first app state
-
-@firstAppStateId = {{queryAppState.response.body.entry[0].resource.id}}
+# Change favorite color to aquamarine
 
 POST https://smart.argo.run/v/r4/sim/test/fhir/$smart-app-state-modify
 content-type: application/json
@@ -41,9 +42,31 @@ content-type: application/json
     "resourceType":"Basic",
     "id": "{{firstAppStateId}}",
     "subject":{"reference":"{{subject}}"},
-    "code":{"coding":[{
+    "code":{
+      "coding":[{
+        "system":"{{stateCodingSystem}}",
+        "code":"{{stateCodingCode}}"}
+    ]},
+    "extension":[{
+        "url":"{{extensionUrl}}",
+        "valueString":"aquamarine"
+    }]
+}
+
+
+###
+# Delete favorite color
+
+POST https://smart.argo.run/v/r4/sim/test/fhir/$smart-app-state-modify
+content-type: application/json
+
+{
+    "resourceType":"Basic",
+    "id": "{{firstAppStateId}}",
+    "subject":{"reference":"{{subject}}"},
+    "code":{
+      "coding":[{
         "system":"{{stateCodingSystem}}",
         "code":"{{stateCodingCode}}"}
     ]}
 }
-
