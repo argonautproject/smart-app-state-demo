@@ -1,7 +1,7 @@
 @server = https://smart.argo.run/v/r4/sim/test/fhir
-@patient = 123
+@subject = Patient/123
 @stateCodingSystem = https://demo-app.example.org
-@stateCodingCode = patient-preferences
+@stateCodingCode = user-preferences
 
 ###
 # Create App state
@@ -10,7 +10,7 @@ content-type: application/json
 
 {
     "resourceType":"Basic",
-    "subject":{"reference":"Patient/{{patient}}"},
+    "subject":{"reference":"{{subject}}"},
     "code":{"coding":[{
         "system":"{{stateCodingSystem}}",
         "code":"{{stateCodingCode}}"}]},
@@ -24,7 +24,7 @@ content-type: application/json
 # Query App state
 // @name queryAppState
 GET https://smart.argo.run/v/r4/sim/test/fhir/$smart-app-state-query
-    ?subject=Patient/{{patient}}
+    ?subject={{subject}}
     &code={{stateCodingSystem}}|{{stateCodingCode}}
 
 
@@ -40,8 +40,10 @@ content-type: application/json
 {
     "resourceType":"Basic",
     "id": "{{firstAppStateId}}",
-    "subject":{"reference":"Patient/{{patient}}"},
+    "subject":{"reference":"{{subject}}"},
     "code":{"coding":[{
         "system":"{{stateCodingSystem}}",
-        "code":"{{stateCodingCode}}"}]}
+        "code":"{{stateCodingCode}}"}
+    ]}
 }
+
