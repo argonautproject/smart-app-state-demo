@@ -38,11 +38,11 @@ GET https://smart.argo.run/v/r4/sim/test/fhir/$smart-app-state-query
 
 POST https://smart.argo.run/v/r4/sim/test/fhir/$smart-app-state-modify
 Content-Type: application/fhir+json
-If-Match: W/"{{firstAppStateVid}}"
 
 {
     "resourceType":"Basic",
     "id": "{{firstAppStateId}}",
+    "meta": {"versionId": "{{firstAppStateVid}}"},
     "subject":{"reference":"{{subject}}"},
     "code":{
       "coding":[{
@@ -61,11 +61,11 @@ If-Match: W/"{{firstAppStateVid}}"
 
 POST https://smart.argo.run/v/r4/sim/test/fhir/$smart-app-state-modify
 Content-Type: application/fhir+json
-If-Match: W/"{{firstAppStateVid}}"
 
 {
     "resourceType":"Basic",
     "id": "{{firstAppStateId}}",
+    "meta": {"versionId": "{{firstAppStateVid}}"},
     "subject":{"reference":"{{subject}}"},
     "code":{
       "coding":[{
