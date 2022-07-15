@@ -1,0 +1,47 @@
+@server = https://smart.argo.run/v/r4/sim/test/fhir
+@patient = 123
+@stateCodingSystem = https://demo-app.example.org
+@stateCodingCode = patient-preferences
+
+###
+# Query App state
+POST {{server}}/$smart-app-state-modify
+content-type: application/json
+
+{
+    "resourceType":"Basic",
+    "subject":{"reference":"Patient/{{patient}}"},
+    "code":{"coding":[{
+        "system":"{{stateCodingSystem}}",
+        "code":"{{stateCodingCode}}"}]},
+    "extension":[{
+        "url":"https://extension.example.org/favorite-color",
+        "valueString":"burlywood"
+    }]
+}
+
+###
+# Query App state
+// @name queryAppState
+GET https://smart.argo.run/v/r4/sim/test/fhir/$smart-app-state-query
+    ?subject=Patient/{{patient}}
+    &code={{stateCodingSystem}}|{{stateCodingCode}}
+
+
+
+###
+# Delete first app state
+
+@firstAppStateId = {{queryAppState.response.body.entry[0].resource.id}}
+
+POST https://smart.argo.run/v/r4/sim/test/fhir/$smart-app-state-modify
+content-type: application/json
+
+{
+    "resourceType":"Basic",
+    "id": "{{firstAppStateId}}",
+    "subject":{"reference":"Patient/{{patient}}"},
+    "code":{"coding":[{
+        "system":"{{stateCodingSystem}}",
+        "code":"{{stateCodingCode}}"}]}
+}
