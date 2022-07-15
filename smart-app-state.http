@@ -31,12 +31,14 @@ GET https://smart.argo.run/v/r4/sim/test/fhir/$smart-app-state-query
     &code={{stateCodingSystem}}|{{stateCodingCode}}
 
 @firstAppStateId = {{queryAppState.response.body.entry[0].resource.id}}
+@firstAppStateVid = {{queryAppState.response.body.entry[0].resource.meta.versionId}}
 
 ###
 # Change favorite color to aquamarine
 
 POST https://smart.argo.run/v/r4/sim/test/fhir/$smart-app-state-modify
 content-type: application/json
+if-match: W/"{{firstAppStateVid}}"
 
 {
     "resourceType":"Basic",
