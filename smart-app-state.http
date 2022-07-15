@@ -7,7 +7,7 @@
 ###
 # Create favorite color as burlywood
 POST {{server}}/$smart-app-state-modify
-content-type: application/json
+Content-Type: : application/fhir+json
 
 {
     "resourceType":"Basic",
@@ -37,8 +37,8 @@ GET https://smart.argo.run/v/r4/sim/test/fhir/$smart-app-state-query
 # Change favorite color to aquamarine
 
 POST https://smart.argo.run/v/r4/sim/test/fhir/$smart-app-state-modify
-content-type: application/json
-if-match: W/"{{firstAppStateVid}}"
+Content-Type: : application/fhir+json
+If-Match: W/"{{firstAppStateVid}}"
 
 {
     "resourceType":"Basic",
@@ -60,7 +60,8 @@ if-match: W/"{{firstAppStateVid}}"
 # Delete favorite color
 
 POST https://smart.argo.run/v/r4/sim/test/fhir/$smart-app-state-modify
-content-type: application/json
+Content-Type: : application/fhir+json
+If-Match: W/"{{firstAppStateVid}}"
 
 {
     "resourceType":"Basic",
