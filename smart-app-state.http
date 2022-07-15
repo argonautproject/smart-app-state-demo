@@ -4,7 +4,7 @@
 @stateCodingCode = patient-preferences
 
 ###
-# Query App state
+# Create App state
 POST {{server}}/$smart-app-state-modify
 content-type: application/json
 
